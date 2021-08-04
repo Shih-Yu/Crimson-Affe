@@ -8,6 +8,8 @@
 
 * [Sponsors](#sponsors)
 
+* [Architechture](#architecture)
+
 * [Setup](#setup)
 
 ## About
@@ -37,5 +39,9 @@ A NFT market place for organizations that hosts art show events. This project is
 * [Covalent](https://www.covalenthq.com/)
 
 * [Polygon](https://polygon.technology/)
+
+## Architecture
+
+![Architecture](/assets/CrimsonAffe.jpg)
 
 ## Setup
