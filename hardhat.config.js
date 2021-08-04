@@ -11,8 +11,8 @@ module.exports = {
       url: process.env.MUMBAI_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
-    mainnet: {
-      url: process.env.POLYGON_MAINNET,
+    goerli: {
+      url: process.env.GOERLI_URL,
       accounts: [process.env.PRIVATE_KEY],
     }
   },
