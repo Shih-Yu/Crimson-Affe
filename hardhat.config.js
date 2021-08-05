@@ -16,5 +16,5 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
     }
   },
-  solidity: "0.8.4",
+  solidity: "0.8.6",
 };
