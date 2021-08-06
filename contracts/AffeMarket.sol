@@ -97,7 +97,7 @@ contract AffeMarket is ReentrancyGuard {
 // Get avaiable items to purchase
   function getAffeItems()public view returns(AffeItem[] memory){
     uint itemCount = _itemIds.current();
-    uint itemNotSold = _itemIds.current() -_itemsSold.current();
+    uint itemNotSold = _itemIds.current() - _itemsSold.current();
     uint currentIndex = 0;
     AffeItem[] memory items = new AffeItem[](itemNotSold);
 
@@ -114,6 +114,6 @@ contract AffeMarket is ReentrancyGuard {
         currentIndex += 1;
       }
     }
-    return items;
+    return items;  
   }
 }
