@@ -11,7 +11,7 @@ contract AffeMarket is ReentrancyGuard {
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
   address payable owner;
-  uint listingFee = 0.009;
+  uint listingFee = 0.009 ether;
 
   constructor() {
     owner = payable(msg.sender);
@@ -49,7 +49,7 @@ contract AffeMarket is ReentrancyGuard {
     public payable nonReentrant {
     require(price > 0, "Does not meet minimum price");
     require(msg.value == listingFee, "Needs more funds to create item");
-    
+
     _itemIds.increment();
     uint itemId = _itemIds.current();
 
@@ -86,7 +86,7 @@ contract AffeMarket is ReentrancyGuard {
 
     affeItems[itemId].owner = payable(msg.sender); // .owner is from struct
     affeItems[itemId].sold = true;
-    itemSold.increment();
+    _itemsSold.increment();
     payable(owner).transfer(listingFee); // this owner is from state variable
   }
 
