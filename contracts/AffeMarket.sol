@@ -22,7 +22,7 @@ contract AffeMarket is ReentrancyGuard {
     uint itemId;
     uint price;
     address mintArtContract;
-    address payable buyer; 
+    address payable seller; 
     address payable owner;
     bool sold;
   }
@@ -34,7 +34,7 @@ contract AffeMarket is ReentrancyGuard {
     uint indexed itemId, 
     uint price, 
     address indexed mintArtContract, 
-    address buyer, 
+    address seller, 
     address owner, 
     bool sold);
 
@@ -76,19 +76,44 @@ contract AffeMarket is ReentrancyGuard {
   }
 
   function createAffeSale(address mintArtContract, uint itemId) public payable nonReentrant {
+    // Assign item price
     uint price = affeItems[itemId].price;
+    // Assign item tokenId
     uint tokenId = affeItems[itemId].tokenId;
+    // Make sure buyer has enough funds to purchase item
     require(msg.value == price, "Need more funds to buy item");
-
-    affeItems[itemId].buyer.transfer(msg.value);
-
+    // Seller gets paid
+    affeItems[itemId].seller.transfer(msg.value);
+    // AffeMarket transfer tokenId to buyer
     IERC721(mintArtContract).transferFrom(address(this), msg.sender, tokenId);
-
+    // Buyer is assigned as new owner
     affeItems[itemId].owner = payable(msg.sender); // .owner is from struct
     affeItems[itemId].sold = true;
     _itemsSold.increment();
+    // AffeMarket gets listing fee
     payable(owner).transfer(listingFee); // this owner is from state variable
   }
 
+// Get avaiable items to purchase
+  function getAffeItems()public view returns(AffeItem[] memory){
+    uint itemCount = _itemIds.current();
+    uint itemNotSold = _itemIds.current() -_itemsSold.current();
+    uint currentIndex = 0;
+    AffeItem[] memory items = new AffeItem[](itemNotSold);
 
+    for(uint i = 0; i < itemCount; i++) {
+      // Loop through items to find only items where there's no buyer's address
+      if(affeItems[i + 1].owner == address(0)) {
+        // Assign currentId variable the new itemId number
+        uint currentId = affeItems[i + 1].itemId;
+        // Set new itemId for mapping of items with no owners
+        AffeItem storage currentItem = affeItems[currentId];
+        // Assign current item to current array index
+        items[currentIndex] = currentItem;
+        // Increase index for next unsold item if any
+        currentIndex += 1;
+      }
+    }
+    return items;
+  }
 }
