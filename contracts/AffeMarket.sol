@@ -8,8 +8,8 @@ import "hardhat/console.sol";
 
 contract AffeMarket is ReentrancyGuard {
   using Counters for Counters.Counter;
-  Counters.Counter private itemIds;
-  Counters.Counter private itemSold;
+  Counters.Counter private _itemIds;
+  Counters.Counter private _itemsSold;
   address payable owner;
   uint listingFee = 0.009;
 
@@ -42,12 +42,18 @@ contract AffeMarket is ReentrancyGuard {
     return listingFee;
   }
 
-  function createAffeItem(address _mintArtContract, uint _tokenId, uint _price) public payable nonReentrant {
-    require(_price > 0, "Does not meet minimum price");
+  function createAffeItem(
+    address mintArtContract, 
+    uint tokenId, 
+    uint price) 
+    public payable nonReentrant {
+    require(price > 0, "Does not meet minimum price");
     require(msg.value == listingFee, "Needs more funds to create item");
-    itemIds.increment();
-    uint newitemId = itemdIds.current();
-    affeItems[newItemId] = AffeItem(
+    
+    _itemIds.increment();
+    uint itemId = _itemIds.current();
+
+    affeItems[itemId] = AffeItem(
       tokenId,
       itemId,
       price,
@@ -58,7 +64,8 @@ contract AffeMarket is ReentrancyGuard {
     );
 
     IERC721(mintArtContract).transferFrom(msg.sender, address(this), tokenId);
-    emit AffeItemCreate(
+
+    emit AffeItemCreated(
       tokenId, 
       itemId, 
       price, 
