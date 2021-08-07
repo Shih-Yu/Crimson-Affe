@@ -1,24 +1,31 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
-import "./Header";
+
 
 export default function Header() {
+  const myStyle = {
+    backgroundColor: "#424a4d",
+    color: "#f1eee4",
+    paddingRight: "50px"
+  }
   return (
     <div>
-      <Navbar bg="light">
+      <Navbar style={myStyle}>
         <Container>
-          <Navbar.Brand href="#home">Brand link</Navbar.Brand>
-
+          <Navbar.Brand href="#home" style={myStyle}>
+          <img src="../assets/crimson_affe.png" alt="crimson affe logo"></img>
+          Crimson Affe
+          </Navbar.Brand>
           <Nav className="justify-content-end">
             <Nav.Item>
-              <Nav.Link href="/home">Home</Nav.Link>
+              <Nav.Link href="/home" style={myStyle}>Home</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="">Gallery</Nav.Link>
+              <Nav.Link href="" style={myStyle}>Gallery</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="">
-                <span>
+                <span style={{color: "#fdbe02"}}>
                   <i class="fas fa-wallet fa-3x"></i>
                 </span>
               </Nav.Link>
