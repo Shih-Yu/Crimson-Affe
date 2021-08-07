@@ -1,11 +1,13 @@
 // import './App.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import Home from "./pages/Home"
+import CreateNFT from "./pages/CreateNFT"
 
 function App() {
   return (
     <div>
-      <h1>Hello, world!</h1>
+      {/* <Home /> */}
+      <CreateNFT />
     </div>
   );
 }

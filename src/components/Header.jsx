@@ -1,5 +1,6 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
+import logo from "../assets/crimson_affe.png"
 
 
 export default function Header() {
@@ -13,7 +14,7 @@ export default function Header() {
       <Navbar style={myStyle}>
         <Container>
           <Navbar.Brand href="#home" style={myStyle}>
-          <img src="../assets/crimson_affe.png" alt="crimson affe logo"></img>
+          <img src={logo} alt="crimson affe logo"></img>
           Crimson Affe
           </Navbar.Brand>
           <Nav className="justify-content-end">

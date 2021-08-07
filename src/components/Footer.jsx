@@ -10,7 +10,7 @@ const myStyle = {
 
 const myStyle2 = {
   listStyleType: 'none',
-  colot: '#f1eee4',
+  color: '#f1eee4',
 };
 
 const myStyle3 = {
@@ -19,8 +19,16 @@ const myStyle3 = {
   padding: '20px',
 };
 
+const myStyle4 = {
+  margin: '0',
+  backgroundColor: '#424a4d',
+  color: '#f1eee4',
+  textAlign: 'center'
+}
+
 export default function Footer() {
   return (
+    <div>
     <div className='container-fluid' style={myStyle}>
       <div>
         <ul style={myStyle2}>
@@ -66,5 +74,10 @@ export default function Footer() {
         </ul>
       </div>
     </div>
+    <div style={myStyle4} className="container-fluid">
+      <p>Crimson Affe Copyright 2021</p>
+    </div>
+    </div>
+
   );
 }
