@@ -1,5 +1,30 @@
 import React from 'react';
-import { myStyle, myStyle2, myStyle3, myStyle4 } from './styles/footer'
+
+const myStyle = {
+  backgroundColor: '#424a4d',
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  padding: '30px',
+};
+
+const myStyle2 = {
+  listStyleType: 'none',
+  color: '#f1eee4',
+};
+
+const myStyle3 = {
+  textDecoration: 'none',
+  color: '#f1eee4',
+  padding: '20px',
+};
+
+const myStyle4 = {
+  margin: '0',
+  backgroundColor: '#424a4d',
+  color: '#f1eee4',
+  textAlign: 'center'
+}
 
 export default function Footer() {
   return (
