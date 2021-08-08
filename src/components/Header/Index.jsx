@@ -1,14 +1,10 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import logo from "../assets/crimson_affe.png"
-
+import { myStyle } from './styles/header'
 
 export default function Header() {
-  const myStyle = {
-    backgroundColor: "#424a4d",
-    color: "#f1eee4",
-    paddingRight: "50px"
-  }
+
   return (
     <div>
       <Navbar style={myStyle}>
