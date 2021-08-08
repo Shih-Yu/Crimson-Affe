@@ -53,7 +53,7 @@ export default function CreateNFT() {
             <Form.Label>Upload File</Form.Label>
             <Form.Control type="file" />
           </Form.Group>
-          <Button style={{ variant: "#fdbe02d" }} type="submit">
+          <Button style={ { backgroundColor: "#fdbe02", border: "none" }} type="submit">
             Submit
           </Button>
         </Form>
