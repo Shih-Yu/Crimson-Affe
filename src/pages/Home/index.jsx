@@ -10,7 +10,7 @@ export default function Home() {
       </div>
       <div style={pageTemplate}>
         <h1 style={{ margin: "0", textAlign: "center" }}>Crimson Affe Marketplace</h1>
-        <h3 style={{ margin: "0" }}>A decentralized NFT marketplace exchange for artists</h3>
+        <h3 style={{ margin: "50px", paddingLeft: "250px" }}>A decentralized NFT marketplace exchange that promotes artist's ablility to create and own their arts.</h3>
       </div>
     </div>
   );
