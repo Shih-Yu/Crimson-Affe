@@ -16,8 +16,8 @@ export default function Header() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const affeContract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
-    const mintArtContract = new ethers.Contract(mintArtAddress, MintArt.abi, provider)
+    await new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
+    await new ethers.Contract(mintArtAddress, MintArt.abi, provider)
   }
   return (
     <div>
