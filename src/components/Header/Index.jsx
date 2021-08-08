@@ -1,5 +1,6 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
+<<<<<<< HEAD:src/components/Header.jsx
 import logo from "../assets/crimson_affe.png";
 import { ROUTES } from "../utils/constants";
 
@@ -9,6 +10,13 @@ export default function Header() {
     color: "#f1eee4",
     paddingRight: "50px",
   };
+=======
+import logo from "../assets/crimson_affe.png"
+import { myStyle } from './styles/header'
+
+export default function Header() {
+
+>>>>>>> 5037f327cad3a75642d0e86ce59395e414a230c0:src/components/Header/Index.jsx
   return (
     <div>
       <Navbar style={myStyle}>
