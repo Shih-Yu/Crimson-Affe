@@ -33,18 +33,18 @@ export default function Footer() {
       <div>
         <ul style={myStyle2}>
           <li>
-            <a style={myStyle3} href='Home'>
+            <a style={myStyle3} href='home'>
               Home
             </a>
           </li>
           <li>
-            <a style={myStyle3} href='Gallery'>
+            <a style={myStyle3} href='gallery'>
               Gallery
             </a>
           </li>
           <li>
-            <a style={myStyle3} href='Curator Login'>
-              Curator Login
+            <a style={myStyle3} href='create-nft'>
+                Create NFT
             </a>
           </li>
         </ul>
@@ -52,12 +52,12 @@ export default function Footer() {
       <div>
         <ul style={myStyle2}>
           <li>
-            <a style={myStyle3} href='Privacy'>
+            <a style={myStyle3} href='privacy'>
               Privacy
             </a>
           </li>
           <li>
-            <a style={myStyle3} href='Policy'>
+            <a style={myStyle3} href='policy'>
               Policy
             </a>
           </li>
