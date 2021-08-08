@@ -1,2 +1,2 @@
-export { default as Header } from './Header/Index'
-export { default as Footer } from './Footer/Index'
+export { default as Header } from './Header/index'
+export { default as Footer } from './Footer/index'

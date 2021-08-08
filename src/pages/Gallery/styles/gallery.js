@@ -1,7 +1,6 @@
 export const pageTemplate = {
-    backgroundColor: "#f1eee4",
     color: "#424a4d",
-    width: "100%",
+    width: "95vw",
     height: "515px",
     padding: "50px",
     margin: "50px",

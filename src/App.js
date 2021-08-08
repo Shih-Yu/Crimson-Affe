@@ -1,16 +1,15 @@
 // import './App.css';
+import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import CreateNFT from "./pages/CreateNFT";
-
+import Routes from './Router';
+import { Header, Footer } from './components'
+ 
 function App() {
   return (
     <div>
-      <Router>
-        <Route path="/home" component={Home} />
-        <Route path="/create-nft" component={CreateNFT} />
-      </Router>
+      <Header />
+      <Routes/>
+      <Footer />
     </div>
   );
 }
