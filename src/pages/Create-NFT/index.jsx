@@ -29,8 +29,10 @@ export default function CreateNFT() {
         description: "",
         image: new File(files)
       })
-    }
+    } catch(error) {
+      console.log(error)
   }
+  
   
   return (
     <div style={pageTemplate}>
