@@ -24,7 +24,7 @@ export default function CreateNFT() {
   });
 
   // Getting information for metadata from state and passing to nft.storage
-  async function onChange(event) {
+  async function onFile(event) {
     // Assigns the uploaded file
     const files = event.target.files[0];
     try {
@@ -87,11 +87,13 @@ export default function CreateNFT() {
       value: listingFee,
     });
     await transaction.wait();
+  }
+
 
     return (
-      <div style={pageTemplate}>
-        <fieldset style={form}>
-          <div style={h1}>
+      <div style={ pageTemplate }>
+        <fieldset style={ form }>
+          <div style={ h1 }>
             <h1>Curate NFT</h1>
           </div>
 
@@ -101,7 +103,7 @@ export default function CreateNFT() {
               <Form.Control
                 type="text"
                 placeholder="Artist Name"
-                onChange={(e) => setFormInput({ ...formInput, name: e.target.value })}
+                onChange={ (e) => setFormInput({ ...formInput, name: e.target.value }) }
               />
             </Form.Group>
 
@@ -110,7 +112,7 @@ export default function CreateNFT() {
               <Form.Control
                 type="text"
                 placeholder="Art Name"
-                onChange={(e) => setFormInput({ ...formInput, artPiece: e.target.value })}
+                onChange={ (e) => setFormInput({ ...formInput, artPiece: e.target.value }) }
               />
             </Form.Group>
 
@@ -119,7 +121,7 @@ export default function CreateNFT() {
               <Form.Control
                 type="text"
                 placeholder="Price"
-                onChange={(e) => setFormInput({ ...formInput, price: e.target.value })}
+                onChange={ (e) => setFormInput({ ...formInput, price: e.target.value }) }
               />
             </Form.Group>
 
@@ -127,18 +129,19 @@ export default function CreateNFT() {
               <Form.Control
                 as="textarea"
                 placeholder="Description of Art"
-                style={{ height: "100px" }}
-                onChange={(e) => setFormInput({ ...formInput, description: e.target.value })}
+                style={ { height: "100px" } }
+                onChange={ (e) => setFormInput({ ...formInput, description: e.target.value }) }
               />
             </FloatingLabel>
-            <Form.Group controlId="formFile" className="mb-3">
+            <Form.Group controlId="formFile" className="mb-3" >
               <Form.Label>Upload File</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" onChange={ onFile } />
+              { file && <img src={ file } alt="nft"/> }
             </Form.Group>
             <Button
-              style={{ backgroundColor: "#fdbe02", border: "none" }}
+              style={ { backgroundColor: "#fdbe02", border: "none" } }
               type="submit"
-              onClick={createAffeItem}
+              onClick={ createAffeItem }
             >
               Submit
             </Button>
@@ -146,5 +149,4 @@ export default function CreateNFT() {
         </fieldset>
       </div>
     );
-  }
 }
