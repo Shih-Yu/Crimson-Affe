@@ -72,12 +72,12 @@ export default function Gallery() {
   return (
     <>
       <div style={pageTemplate}></div>
-        <div class="card-group">
+        <div className="card-group">
           {
             nfts.map((nft, index) => (
             
           <div className="card my-3 mx-3" key={index}>
-            <img src={nft.image} class="card-img-top" alt="nft cards"/>
+            <img src={nft.image} className="card-img-top" alt="nft cards"/>
               <div className="card-body">
                 <h5 className="card-title">{nft.artPiece}</h5>
                 <p className="card-text">{nft.description}</p>
