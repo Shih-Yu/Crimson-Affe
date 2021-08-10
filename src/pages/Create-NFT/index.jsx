@@ -21,7 +21,7 @@ export default function CreateNFT() {
     artPiece: "",
     price: "",
     description: "",
-    image: ""
+    image: "",
   });
 
   // Getting information for metadata from state and passing to nft.storage
@@ -32,10 +32,11 @@ export default function CreateNFT() {
       const metadata = await client.store({
         name: formInput.name,
         description: formInput.description,
-        image: new File([files], "", {type: "image/jpg"}),
+        image: new File([files], "", { type: "image/jpg" }),
       });
       // Gets url of nft from nft.storage
       const url = metadata.url;
+      
       // Sets File state from nft.storge's url
       setFile(url);
     } catch (error) {
@@ -92,65 +93,63 @@ export default function CreateNFT() {
     await transaction.wait();
   }
 
+  return (
+    <div style={pageTemplate}>
+      <fieldset style={form}>
+        <div style={h1}>
+          <h1>Curate NFT</h1>
+        </div>
 
-    return (
-      <div style={ pageTemplate }>
-        <fieldset style={ form }>
-          <div style={ h1 }>
-            <h1>Curate NFT</h1>
-          </div>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Artist Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Artist Name"
+              onChange={(e) => setFormInput({ ...formInput, name: e.target.value })}
+            />
+          </Form.Group>
 
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Artist Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Artist Name"
-                onChange={ (e) => setFormInput({ ...formInput, name: e.target.value }) }
-              />
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Name of Art Piece</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Art Name"
+              onChange={(e) => setFormInput({ ...formInput, artPiece: e.target.value })}
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Name of Art Piece</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Art Name"
-                onChange={ (e) => setFormInput({ ...formInput, artPiece: e.target.value }) }
-              />
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Price In Matic</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Price"
+              onChange={(e) => setFormInput({ ...formInput, price: e.target.value })}
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Price In Matic</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Price"
-                onChange={ (e) => setFormInput({ ...formInput, price: e.target.value }) }
-              />
-            </Form.Group>
-
-            <FloatingLabel controlId="floatingTextarea2" className="mb-2" label="Description">
-              <Form.Control
-                as="textarea"
-                placeholder="Description of Art"
-                style={ { height: "100px" } }
-                onChange={ (e) => setFormInput({ ...formInput, description: e.target.value }) }
-              />
-            </FloatingLabel>
-            <Form.Group controlId="formFile" className="mb-3" >
-              <Form.Label>Upload File</Form.Label>
-              { file && <img className="rounded mt-4" src={ file } alt="nft"/> }
-              <Form.Control type="file" onChange={ onFile } />
-              
-            </Form.Group>
-            <Button
-              style={ { backgroundColor: "#fdbe02", border: "none" } }
-              type="submit"
-              onClick={ createAffeItem }
-            >
-              Submit
-            </Button>
-          </Form>
-        </fieldset>
-      </div>
-    );
+          <FloatingLabel controlId="floatingTextarea2" className="mb-2" label="Description">
+            <Form.Control
+              as="textarea"
+              placeholder="Description of Art"
+              style={{ height: "100px" }}
+              onChange={(e) => setFormInput({ ...formInput, description: e.target.value })}
+            />
+          </FloatingLabel>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Upload File</Form.Label>
+            {file && <img className="rounded mt-4" src={file} alt="nft" />}
+            <Form.Control type="file" onChange={onFile} />
+          </Form.Group>
+          <Button
+            style={{ backgroundColor: "#fdbe02", border: "none" }}
+            type="submit"
+            onClick={createAffeItem}
+          >
+            Submit
+          </Button>
+        </Form>
+      </fieldset>
+    </div>
+  );
 }
