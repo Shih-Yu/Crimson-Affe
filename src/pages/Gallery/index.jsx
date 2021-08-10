@@ -71,7 +71,7 @@ export default function Gallery() {
 
   return (
     <>
-      <div style={pageTemplate}>I am gallery page</div>
+      <div style={pageTemplate}></div>
         <div class="card-group">
           {
             nfts.map((nft, index) => (

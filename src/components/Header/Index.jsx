@@ -47,7 +47,7 @@ export default function Header() {
             <Nav.Item>
               <Nav.Link href="" onClick={walletConnect}>
                 <span style={{ color: "#fdbe02" }}>
-                  <i class="fas fa-wallet fa-3x"></i>
+                  <i className="fas fa-wallet fa-3x"></i>
                 </span>
               </Nav.Link>
             </Nav.Item>
