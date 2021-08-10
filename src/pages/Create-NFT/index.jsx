@@ -21,6 +21,7 @@ export default function CreateNFT() {
     artPiece: "",
     price: "",
     description: "",
+    image: ""
   });
 
   // Getting information for metadata from state and passing to nft.storage
@@ -29,7 +30,9 @@ export default function CreateNFT() {
     const files = event.target.files[0];
     try {
       const metadata = await client.store({
-        image: new File([files]),
+        name: formInput.name,
+        description: formInput.description,
+        image: new File([files], "", {type: "image/jpg"}),
       });
       // Gets url of nft from nft.storage
       const url = metadata.url;
@@ -135,8 +138,9 @@ export default function CreateNFT() {
             </FloatingLabel>
             <Form.Group controlId="formFile" className="mb-3" >
               <Form.Label>Upload File</Form.Label>
+              { file && <img className="rounded mt-4" src={ file } alt="nft"/> }
               <Form.Control type="file" onChange={ onFile } />
-              { file && <img src={ file } alt="nft"/> }
+              
             </Form.Group>
             <Button
               style={ { backgroundColor: "#fdbe02", border: "none" } }
