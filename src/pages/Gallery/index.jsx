@@ -3,26 +3,26 @@ import { ethers } from "ethers";
 import Web3modal from "web3modal";
 import axios from "axios";
 import { pageTemplate } from "./styles/gallery";
-​
+
 import { affeMarketAddress, mintArtAddress } from "../../config";
 import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
 import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
-​
-​
+
+
 export default function Gallery() {
   const [nfts, setNfts] = useState([]);
   const [upload, setUpload] = useState('not-loaded');
-​
+
   useEffect(() => {
     loadNfts();
   }, []);
-​
+
   async function loadNfts() {
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/b614365440b14601b712b84bae5812ee");
+    const provider = new ethers.providers.JsonRpcProvider(process.env.MUMBAI_URL);
     const tokenContract = new ethers.Contract(mintArtAddress, MintArt.abi, provider);
     const marketContract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, provider);
     const data = await marketContract.getAffeItems();
-​
+
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
@@ -44,16 +44,16 @@ export default function Gallery() {
     setNfts(items);
     setUpload('loaded');
   }
-​
+
   async function buyNft(nft) {
     const web3Modal = new Web3modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-​
+
     const tokenContract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ethers');
-​
+
     const transaction = await tokenContract.createAffeSale(
       mintArtAddress,
       nft.tokenId,
@@ -64,11 +64,11 @@ export default function Gallery() {
     await transaction.wait();
     loadNfts();
   }
-​
+
   if (upload === "loaded" && !nfts.length) {
     return <h1 className="text-center px-20 py-10">No NFTs available</h1>;
   }
-​
+
   return (
     <>
       <div style={pageTemplate}>I am gallery page</div>
@@ -99,4 +99,3 @@ export default function Gallery() {
     </>
   );
 }
-​
