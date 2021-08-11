@@ -15,7 +15,7 @@ import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
 const apiKey = process.env.REACT_APP_NFTSTORAGE_KEY;
 const client = new NFTStorage({ token: apiKey });
 
-export default function CreateNFT() {
+export default function CreateNFT(props) {
   const [file, setFile] = useState(null);
   const [formInput, setFormInput] = useState({
     name: "",
@@ -29,6 +29,7 @@ export default function CreateNFT() {
   async function onFile(event) {
     // Assigns the uploaded file
     const files = event.target.files[0];
+    event.preventDefault()
     try {
       const metadata = await client.store({
         name: formInput.name,
@@ -92,6 +93,10 @@ export default function CreateNFT() {
       value: listingFee,
     });
     await transaction.wait();
+    props.history.push({
+      pathname: '/gallery',
+      formInput
+    });
   }
 
   return (
@@ -101,7 +106,7 @@ export default function CreateNFT() {
           <h1>Curate NFT</h1>
         </div>
 
-        <Form>
+        <Form className="nft-info" onSubmit={onFile}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Artist Name</Form.Label>
             <Form.Control
