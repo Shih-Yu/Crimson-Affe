@@ -37,7 +37,9 @@ export default function CreateNFT(props) {
         image: new File([files], "test_file.jpg", { type: "image/jpg" }),
       });
       // Gets url of nft from nft.storage
-      const url = metadata.url;
+      const CID = metadata.url;
+      const url = `${CID}/metadata.json`;
+      
       
       // Sets File state from nft.storge's url
       setFile(url);
