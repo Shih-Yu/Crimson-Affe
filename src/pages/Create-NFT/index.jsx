@@ -10,8 +10,9 @@ import { affeMarketAddress, mintArtAddress } from "../../config";
 import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
 import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
 
+
 // NFT.Storage connection
-const apiKey = process.env.NFTSTORAGE_KEY;
+const apiKey = process.env.REACT_APP_NFTSTORAGE_KEY;
 const client = new NFTStorage({ token: apiKey });
 
 export default function CreateNFT() {
@@ -32,7 +33,7 @@ export default function CreateNFT() {
       const metadata = await client.store({
         name: formInput.name,
         description: formInput.description,
-        image: new File([files], "", { type: "image/jpg" }),
+        image: new File([files], "test_file.jpg", { type: "image/jpg" }),
       });
       // Gets url of nft from nft.storage
       const url = metadata.url;

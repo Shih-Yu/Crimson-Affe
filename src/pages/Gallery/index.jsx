@@ -18,7 +18,7 @@ export default function Gallery() {
   }, []);
 
   async function loadNfts() {
-    const provider = new ethers.providers.JsonRpcProvider(process.env.MUMBAI_URL);
+    const provider = new ethers.providers.JsonRpcProvider(process.env.REACT_APP_MUMBAI_URL);
     const tokenContract = new ethers.Contract(mintArtAddress, MintArt.abi, provider);
     const marketContract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, provider);
     const data = await marketContract.getAffeItems();
