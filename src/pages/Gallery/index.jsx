@@ -8,10 +8,9 @@ import { affeMarketAddress, mintArtAddress } from "../../config";
 import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
 import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
 
-
 export default function Gallery() {
   const [nfts, setNfts] = useState([]);
-  const [upload, setUpload] = useState('not-loaded');
+  const [upload, setUpload] = useState("not-loaded");
 
   useEffect(() => {
     loadNfts();
@@ -27,22 +26,22 @@ export default function Gallery() {
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ethers');
+        let price = ethers.utils.formatUnits(i.price.toString(), "ethers");
         let item = {
-        price,
-        tokenId: i.tokenId.toNumber(),
-        seller: i.seller,
-        owner: i.owner,
-        image: meta.data.image,
-        name: meta.data.name,
-        artPiece: meta.data.artPiece,
-        description: meta.data.description,
-      };
-      return item;
+          price,
+          tokenId: i.tokenId.toNumber(),
+          seller: i.seller,
+          owner: i.owner,
+          image: meta.data.image,
+          name: meta.data.name,
+          artPiece: meta.data.artPiece,
+          description: meta.data.description,
+        };
+        return item;
       })
     );
     setNfts(items);
-    setUpload('loaded');
+    setUpload("loaded");
   }
 
   async function buyNft(nft) {
@@ -52,15 +51,11 @@ export default function Gallery() {
     const signer = provider.getSigner();
 
     const tokenContract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ethers');
+    const price = ethers.utils.parseUnits(nft.price.toString(), "ethers");
 
-    const transaction = await tokenContract.createAffeSale(
-      mintArtAddress,
-      nft.tokenId,
-      {
-        value: price,
-      }
-    );
+    const transaction = await tokenContract.createAffeSale(mintArtAddress, nft.tokenId, {
+      value: price,
+    });
     await transaction.wait();
     loadNfts();
   }
@@ -71,13 +66,11 @@ export default function Gallery() {
 
   return (
     <>
-      <div style={pageTemplate}></div>
+      <div style={pageTemplate}>
         <div className="card-group">
-          {
-            nfts.map((nft, index) => (
-            
-          <div className="card my-3 mx-3" key={index}>
-            <img src={nft.image} className="card-img-top" alt="nft cards"/>
+          {nfts.map((nft, index) => (
+            <div className="card my-3 mx-3" key={index}>
+              <img src={nft.image} className="card-img-top" alt="nft cards" />
               <div className="card-body">
                 <h5 className="card-title">{nft.artPiece}</h5>
                 <p className="card-text">{nft.description}</p>
@@ -85,17 +78,18 @@ export default function Gallery() {
                 <p className="card-text">{nft.price} Matic</p>
               </div>
               <div className="card-footer">
-                <button 
-                className="btn btn-small btn" 
-                style={{ backgroundColor: "#fdbe02", border: "none" }}
-                onClick={() => buyNft(nft)}>
-                Buy
+                <button
+                  className="btn btn-small btn"
+                  style={{ backgroundColor: "#fdbe02", border: "none" }}
+                  onClick={() => buyNft(nft)}
+                >
+                  Buy
                 </button>
               </div>
             </div>
-            ))
-          }
+          ))}
         </div>
+      </div>
     </>
   );
 }
