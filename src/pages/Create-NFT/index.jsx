@@ -22,7 +22,7 @@ export default function CreateNFT(props) {
     artPiece: "",
     price: "",
     description: "",
-    image: "",
+    image: "", //?
   });
 
   // Getting information for metadata from state and passing to nft.storage
@@ -39,6 +39,7 @@ export default function CreateNFT(props) {
       // Gets url of nft from nft.storage
       const CID = metadata.url;
       const url = `${CID}/metadata.json`;
+      console.log(url);
       
       
       // Sets File state from nft.storge's url
@@ -49,7 +50,7 @@ export default function CreateNFT(props) {
   }
   async function createAffeItem() {
     const { name, artPiece, price, description } = formInput;
-    if (!name || !artPiece || !price || !description || !file) return;
+    if (!name && !artPiece && !price && !description && !file) return;
     //  Change form info into string for nft.storage metadata
     const data = JSON.stringfy({
       name,
