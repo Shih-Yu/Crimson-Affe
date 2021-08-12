@@ -9,7 +9,7 @@ function Routes(){
     return (
         <Router>
             <Switch>
-                <Route path={ROUTES.home}>
+                <Route exact path={ROUTES.home}>
                     <Home />
                 </Route>
                 <Route path={ROUTES.gallery}>

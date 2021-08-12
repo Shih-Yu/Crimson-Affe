@@ -1,7 +1,7 @@
  
 
  export const ROUTES = {
-	home: "/home",
+	home: "/",
 	gallery: "/gallery",
 	createNFT: "/create-nft",
  }
