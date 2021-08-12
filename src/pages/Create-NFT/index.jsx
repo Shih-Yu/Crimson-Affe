@@ -34,7 +34,7 @@ export default function CreateNFT(props) {
       const metadata = await client.store({
         name: formInput.name,
         description: formInput.description,
-        image: new File([files], "test_file.jpg", { type: "image/jpg" }),
+        image: new File([files], "", { type: "image/jpg" }),
       });
       // Gets url of nft from nft.storage
       const CID = metadata.url;
@@ -86,7 +86,7 @@ export default function CreateNFT(props) {
     let value = event.args[2];
     let tokenId = value.toNumber();
 
-    const price = ethers.utils.parseUnits(formInput.price, "matic");
+    const price = ethers.utils.parseUnits(formInput.price, "ether");
     contract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
     let listingFee = await contract.getListingfee();
     listingFee = listingFee.toString();

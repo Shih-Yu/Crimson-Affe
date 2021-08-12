@@ -75,7 +75,7 @@ export default function Gallery() {
                 <h5 className="card-title">{nft.artPiece}</h5>
                 <p className="card-text">{nft.description}</p>
                 <small className="text-muted">{nft.name}</small>
-                <p className="card-text">{nft.price} Matic</p>
+                <p className="card-text">{nft.price} Ethers</p>
               </div>
               <div className="card-footer">
                 <button
