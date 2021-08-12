@@ -62,7 +62,8 @@ export default function CreateNFT(props) {
 
     try {
       const metadata = await client.store(data);
-      const url = metadata.url;
+      const CID = metadata.url;
+      const url = `${CID}/metadata.json`;
       createNFTToken(url);
     } catch (error) {
       console.log("Error uploading file: ", error);
