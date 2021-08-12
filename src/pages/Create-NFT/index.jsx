@@ -147,7 +147,7 @@ export default function CreateNFT(props) {
           </FloatingLabel>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Upload File</Form.Label>
-            {file && <img className="rounded mt-4" src={file} alt="nft" />}
+            {file && (<img className="rounded mt-4" src={file} alt="nft" />)}
             <Form.Control type="file" onChange={onFile} />
           </Form.Group>
           <Button
