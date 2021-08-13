@@ -3,8 +3,8 @@
 //export const affeMarketAddress="0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // Mumbai
-export const mintArtAddress ="0x01b1d1591e4870f28E5cA1a8bE5b891b99655643";
-export const affeMarketAddress="0x19dF80f105c3A7d88Bb3DeEd30284124d5854E05";
+export const mintArtAddress ="0x3da76c7C62bFddCDe97a8b518d709f0929EaEF84";
+export const affeMarketAddress="0xcFE12a529F83a633f52eFaDb13d63845e674D186";
 
 // Goerli
 // export const mintArtAddress ="0x349d4d28eB9B46c3c90c206619f922403bBa6057";

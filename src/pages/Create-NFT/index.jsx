@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Form, Button, FloatingLabel } from 'react-bootstrap';
 import { pageTemplate, form, h1 } from './styles/createNFT';
 import { useState } from 'react';
@@ -92,7 +92,7 @@ export default function CreateNFT() {
 
     // get info from NFT Contract
     let event = tx.events[0]; // get the latest event that was fired
-    console.log(event.args[2]);
+    // console.log(event.args[2]);
     let value = event.args[2];
     let tokenId = value.toNumber();
 

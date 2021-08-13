@@ -11,47 +11,47 @@ contract AffeMarket is ReentrancyGuard {
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
   address payable owner;
-  uint listingFee = 0.025 ether;
+  uint256 listingFee = 0.025 ether;
 
   constructor() {
     owner = payable(msg.sender);
   }
 
   struct AffeItem {
-    uint itemId;
+    uint256 itemId;
     address mintArtContract;
-    uint tokenId;
+    uint256 tokenId;
     address payable seller; 
     address payable owner;
-    uint price;
+    uint256 price;
     bool sold;
   }
   
-  mapping(uint => AffeItem) private affeItems;
+  mapping(uint256 => AffeItem) private affeItems;
 
   event AffeItemCreated(
-    uint indexed tokenId, 
-    uint indexed itemId, 
-    uint price, 
+    uint256 indexed itemId, 
     address indexed mintArtContract, 
+    uint256 indexed tokenId, 
     address seller, 
     address owner, 
+    uint256 price, 
     bool sold);
 
-  function getListingFee() public view returns(uint) {
+  function getListingFee() public view returns(uint256) {
     return listingFee;
   }
 
   function createAffeItem(
     address mintArtContract, 
-    uint tokenId, 
-    uint price) 
+    uint256 tokenId, 
+    uint256 price) 
     public payable nonReentrant {
     require(price > 0, "Does not meet minimum price");
     require(msg.value == listingFee, "Needs more funds to create item");
 
     _itemIds.increment();
-    uint itemId = _itemIds.current();
+    uint256 itemId = _itemIds.current();
 
     affeItems[itemId] = AffeItem(
       itemId,
@@ -76,11 +76,11 @@ contract AffeMarket is ReentrancyGuard {
     );
   }
 
-  function createAffeSale(address mintArtContract, uint itemId) public payable nonReentrant {
+  function createAffeSale(address mintArtContract, uint256 itemId) public payable nonReentrant {
     // Assign item price
-    uint price = affeItems[itemId].price;
+    uint256 price = affeItems[itemId].price;
     // Assign item tokenId
-    uint tokenId = affeItems[itemId].tokenId;
+    uint256 tokenId = affeItems[itemId].tokenId;
     // Make sure buyer has enough funds to purchase item
     require(msg.value == price, "Need more funds to buy item");
     // Seller gets paid
@@ -97,16 +97,16 @@ contract AffeMarket is ReentrancyGuard {
 
 // Get avaiable items to purchase
   function getAffeItems()public view returns(AffeItem[] memory){
-    uint itemCount = _itemIds.current();
-    uint itemNotSold = _itemIds.current() - _itemsSold.current();
-    uint currentIndex = 0;
+    uint256 itemCount = _itemIds.current();
+    uint256 itemNotSold = _itemIds.current() - _itemsSold.current();
+    uint256 currentIndex = 0;
     AffeItem[] memory items = new AffeItem[](itemNotSold);
 
-    for(uint i = 0; i < itemCount; i++) {
+    for(uint256 i = 0; i < itemCount; i++) {
       // Loop through items to find only items where there's no buyer's address
       if(affeItems[i + 1].owner == address(0)) {
         // Assign currentId variable the new itemId number
-        uint currentId = affeItems[i + 1].itemId;
+        uint256 currentId = affeItems[i + 1].itemId;
         // Set new itemId for mapping of items with no owners
         AffeItem storage currentItem = affeItems[currentId];
         // Assign current item to current array index
