@@ -17,9 +17,10 @@ const client = new NFTStorage({ token: apiKey });
 
 export default function CreateNFT() {
   const [formInput, setFormInput] = useState({
-    price: '',
     name: '',
+    price: '',
     description: '',
+    image: '',
   });
   const [file, setFile] = useState();
 
@@ -32,18 +33,17 @@ export default function CreateNFT() {
       const metadata = await client.store({
         name: formInput.name,
         description: formInput.description,
-        image: new File([files], '', { type: 'image/jpg' }),
+        image: new File([files], 'test.jpg', { type: 'image/jpg' }),
       });
 
-      const CID = metadata.url;
-      const url = `${CID}/metadata.json`
+      const url = metadata.data.image;
       setFile(url);
     } catch (error) {
       console.log(error);
     }
   }
       
-
+  // Creating NFT token
   async function createAffeMarketItem() {
     const { name, description, price } = formInput;
     if (!name || !description || !price || !file) return;
@@ -56,8 +56,7 @@ export default function CreateNFT() {
 
     try {
       const metadata = await client.store(data);
-      const CID = metadata.url;
-      const url = `${CID}/metadata.json`;
+      const url = metadata.url;
      
       createNFTToken(url);
     } catch (error) {
@@ -146,7 +145,7 @@ export default function CreateNFT() {
           </FloatingLabel>
           <Form.Group controlId='formFile' className='mb-3'>
             <Form.Label>Upload File</Form.Label>
-            {file && <img className='rounded mt-4' width= '350' height='350' src={file} alt='nft art' />}
+            {/* {file && <img className='rounded mt-4' width= '350' height='350' src={file} alt='nft art' />} */}
             <Form.Control type='file' onChange={onFile} />
           </Form.Group>
           <Button
