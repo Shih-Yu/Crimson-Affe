@@ -99,6 +99,16 @@ export default function CreateNFT() {
     
   }
 
+  async function connecting() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const affeContract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
+    const mintArtContract = new ethers.Contract(mintArtAddress, MintArt.abi, provider);
+    console.log("click");
+  }
+
   return (
     <div style={pageTemplate}>
       <fieldset style={form}>
@@ -155,7 +165,9 @@ export default function CreateNFT() {
             Create NFT
           </Button>
         </Form>
+        <button onClick={connecting}>connect</button>
       </fieldset>
+
     </div>
   );
 }
