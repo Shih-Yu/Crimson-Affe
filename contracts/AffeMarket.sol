@@ -11,19 +11,19 @@ contract AffeMarket is ReentrancyGuard {
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
   address payable owner;
-  uint listingFee = 0.009 ether;
+  uint listingFee = 0.025 ether;
 
   constructor() {
     owner = payable(msg.sender);
   }
 
   struct AffeItem {
-    uint tokenId;
     uint itemId;
-    uint price;
     address mintArtContract;
+    uint tokenId;
     address payable seller; 
     address payable owner;
+    uint price;
     bool sold;
   }
   
@@ -54,25 +54,26 @@ contract AffeMarket is ReentrancyGuard {
     uint itemId = _itemIds.current();
 
     affeItems[itemId] = AffeItem(
-      tokenId,
       itemId,
-      price,
       mintArtContract,
+      tokenId,   
       payable(msg.sender),
       payable(address(0)),
+      price,
       false
     );
 
     IERC721(mintArtContract).transferFrom(msg.sender, address(this), tokenId);
 
     emit AffeItemCreated(
-      tokenId, 
-      itemId, 
-      price, 
-      mintArtContract, 
-      msg.sender, 
-      address(0), 
-      false);   
+      itemId,
+      mintArtContract,
+      tokenId,   
+      msg.sender,
+      address(0),
+      price,
+      false
+    );
   }
 
   function createAffeSale(address mintArtContract, uint itemId) public payable nonReentrant {

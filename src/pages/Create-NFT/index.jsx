@@ -20,11 +20,9 @@ const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 export default function CreateNFT() {
   const [file, setFile] = useState(null);
   const [formInput, setFormInput] = useState({
-    name: '',
-    artPiece: '',
     price: '',
+    name: '',
     description: '',
-    image: '', 
   });
 
   // Getting information for metadata from state and passing to nft.storage
@@ -58,13 +56,11 @@ export default function CreateNFT() {
   // }
 
   async function createAffeMarketItem() {
-    const { name, artPiece, price, description } = formInput;
-    if (!name && !artPiece && !price && !description && !file) return;
+    const { name, description, price } = formInput;
+    if (!name || !description || !price || !file) return;
     //  Change form info into string for nft.storage metadata
     const data = JSON.stringify({
-      name,
-      artPiece,
-      price,
+      name,   
       description,
       image: file,
     });
@@ -96,6 +92,7 @@ export default function CreateNFT() {
 
     // get info from NFT Contract
     let event = tx.events[0]; // get the latest event that was fired
+    console.log(event.args[2]);
     let value = event.args[2];
     let tokenId = value.toNumber();
 
@@ -128,31 +125,20 @@ export default function CreateNFT() {
           <h1>Curate NFT</h1>
         </div>
 
-        <Form className='nft-info' onSubmit={onFile}>
-          <Form.Group className='mb-3' controlId='formBasicEmail'>
-            <Form.Label>Artist Name</Form.Label>
+        <Form className='nft-info'>
+          <Form.Group className='mb-3'>
+            <Form.Label>Name</Form.Label>
             <Form.Control
               type='text'
-              placeholder='Artist Name'
+              placeholder='Art Name'
               onChange={(e) =>
                 setFormInput({ ...formInput, name: e.target.value })
               }
             />
           </Form.Group>
 
-          <Form.Group className='mb-3' controlId='formBasicPassword'>
-            <Form.Label>Name of Art Piece</Form.Label>
-            <Form.Control
-              type='text'
-              placeholder='Art Name'
-              onChange={(e) =>
-                setFormInput({ ...formInput, artPiece: e.target.value })
-              }
-            />
-          </Form.Group>
-
-          <Form.Group className='mb-3' controlId='formBasicPassword'>
-            <Form.Label>Price In Matic</Form.Label>
+          <Form.Group className='mb-3'>
+            <Form.Label>Price</Form.Label>
             <Form.Control
               type='text'
               placeholder='Price'
@@ -178,7 +164,7 @@ export default function CreateNFT() {
           </FloatingLabel>
           <Form.Group controlId='formFile' className='mb-3'>
             <Form.Label>Upload File</Form.Label>
-            {file && <img className='rounded mt-4' width= '350' height='350' src={file} alt='nft' />}
+            {file && <img className='rounded mt-4' width= '350' height='350' src={file} alt='nft art' />}
             <Form.Control type='file' onChange={onFile} />
           </Form.Group>
           <Button
