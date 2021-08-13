@@ -4,26 +4,24 @@ import { pageTemplate, form, h1 } from './styles/createNFT';
 import { useState } from 'react';
 import { ethers } from 'ethers';
 //import { Redirect } from "react-router-dom";
-//import { NFTStorage, File } from 'nft.storage';
+import { NFTStorage, File } from 'nft.storage';
 import Web3Modal from 'web3modal';
-import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { affeMarketAddress, mintArtAddress } from '../../config';
 import AffeMarket from '../../artifacts/contracts/AffeMarket.sol/AffeMarket.json';
 import MintArt from '../../artifacts/contracts/MintArt.sol/MintArt.json';
 
-const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
 // NFT.Storage connection
-//const apiKey = process.env.REACT_APP_NFTSTORAGE_KEY;
-//const client = new NFTStorage({ token: apiKey });
+const apiKey = process.env.REACT_APP_NFTSTORAGE_KEY;
+const client = new NFTStorage({ token: apiKey });
 
 export default function CreateNFT() {
-  const [file, setFile] = useState(null);
   const [formInput, setFormInput] = useState({
     price: '',
     name: '',
     description: '',
   });
+  const [file, setFile] = useState();
 
   // Getting information for metadata from state and passing to nft.storage
   async function onFile(event) {
@@ -31,29 +29,20 @@ export default function CreateNFT() {
     const files = event.target.files[0];
     
     try {
-      const added = await client.add(files, {
-        progress: (prog) => console.log(`received: ${prog}`),
+      const metadata = await client.store({
+        name: formInput.name,
+        description: formInput.description,
+        image: new File([files], '', { type: 'image/jpg' }),
       });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+
+      const CID = metadata.url;
+      const url = `${CID}/metadata.json`
       setFile(url);
     } catch (error) {
       console.log(error);
     }
   }
-      // const metadata = await client.store({
-      //   name: formInput.name,
-      //   description: formInput.description,
-      //   image: new File([files], '', { type: 'image/jpg' }),
-      // });
-      // Gets url of nft from nft.storage
       
-
-      // Sets File state from nft.storge's url
-  //     setFile(url);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   async function createAffeMarketItem() {
     const { name, description, price } = formInput;
@@ -66,11 +55,10 @@ export default function CreateNFT() {
     });
 
     try {
-      // const metadata = await client.store(data);
-      // const CID = metadata.url;
-      // const url = `${CID}/metadata.json`;
-      const added = await client.add(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const metadata = await client.store(data);
+      const CID = metadata.url;
+      const url = `${CID}/metadata.json`;
+     
       createNFTToken(url);
     } catch (error) {
       console.log('Error uploading file: ', error);
@@ -98,7 +86,7 @@ export default function CreateNFT() {
 
     const price = ethers.utils.parseUnits(formInput.price, 'ether');
     contract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
-    let listingFee = await contract.getListingfee();
+    let listingFee = await contract.getListingFee();
     listingFee = listingFee.toString();
 
     transaction = await contract.createAffeItem(
@@ -108,14 +96,8 @@ export default function CreateNFT() {
       {
         value: listingFee,
       }
-    );
+    )
     
-    await transaction.wait();
-    console.log(url);
-    // props.history.push({
-    //   pathname: '/gallery',
-    //   formInput,
-    // });
   }
 
   return (
