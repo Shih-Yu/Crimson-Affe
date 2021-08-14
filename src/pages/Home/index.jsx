@@ -1,11 +1,6 @@
 import React from "react";
 import logo from "../../assets/home_logo.png";
 import { pageTemplate, flex, logoImage } from "./styles/Home";
-import Web3Modal from 'web3modal';
-import { ethers } from "ethers";
-import { affeMarketAddress, mintArtAddress } from "../../config";
-import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
-import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
 
 export default function Home() {
 

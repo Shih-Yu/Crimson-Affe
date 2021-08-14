@@ -3,7 +3,12 @@ import { ethers } from 'ethers';
 import Web3modal from 'web3modal';
 import axios from 'axios';
 import { pageTemplate } from './styles/gallery';
-import images from '../assets/images.js';
+import image1 from '../assets/MarcelStrauss/marcelstrauss1.jpg';
+import image2 from '../assets/MarcelStrauss/marcelstrauss2.jpg';
+import image3 from '../assets/MarcelStrauss/marcelstrauss3.jpg';
+import image4 from '../assets/MarcelStrauss/marcelstrauss4.jpg';
+import image5 from '../assets/MarcelStrauss/marcelstrauss5.jpg';
+
 
 import { affeMarketAddress, mintArtAddress } from '../../config';
 import AffeMarket from '../../artifacts/contracts/AffeMarket.sol/AffeMarket.json';
@@ -11,12 +16,51 @@ import MintArt from '../../artifacts/contracts/MintArt.sol/MintArt.json';
 
 
 export default function Gallery() {
-  const [nfts, setNfts] = useState([]);
-  const [upload, setUpload] = useState('not-loaded');
+  // const [nfts, setNfts] = useState([]);
+  // const [upload, setUpload] = useState('not-loaded');
 
-  useEffect(() => {
-    loadNfts();
-  }, []);
+  // useEffect(() => {
+  //   loadNfts();
+  // }, []);
+
+
+  const images = [
+    {
+      id: 1,
+      src: image1,
+      title: 'foo',
+      description: 'bar',
+      price: 1,
+    },
+    {
+      id: 2,
+      src: image2,
+      title: 'foo',
+      description: 'bar',
+      price: 1,
+    },
+    {
+      id: 3,
+      src: image3,
+      title: 'foo',
+      description: 'bar',
+      price: 1,
+    },
+    {
+      id: 4,
+      src: image4,
+      title: 'foo',
+      description: 'bar',
+      price: 1,
+    },
+    {
+      id: 5,
+      src: image5,
+      title: 'foo',
+      description: 'bar',
+      price: 1,
+    },
+  ]
 
   async function loadNfts() {
     const provider = new ethers.providers.JsonRpcProvider(
@@ -51,8 +95,8 @@ export default function Gallery() {
         return item;
       })
     );
-    setNfts(items);
-    setUpload('loaded');
+  //   setNfts(items);
+  //   setUpload('loaded');
   }
 
   async function buyNft(nft) {
