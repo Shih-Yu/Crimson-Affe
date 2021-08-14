@@ -56,7 +56,7 @@ Change into directory
 cd Crimson-Affe
 ```
 
-* [ ]Install project dependecies
+Install project dependecies
 
 ``` bash
 npm i
