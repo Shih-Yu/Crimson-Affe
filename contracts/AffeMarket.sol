@@ -11,7 +11,7 @@ contract AffeMarket is ReentrancyGuard {
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
   address payable owner;
-  uint256 listingFee = 0.025 ether;
+  // uint256 listingFee = 0.025 ether;
 
   constructor() {
     owner = payable(msg.sender);
@@ -38,9 +38,9 @@ contract AffeMarket is ReentrancyGuard {
     uint256 price, 
     bool sold);
 
-  function getListingFee() public view returns(uint256) {
-    return listingFee;
-  }
+  // function getListingFee() public view returns(uint256) {
+  //   return listingFee;
+  // }
 
   function createAffeItem(
     address mintArtContract, 
@@ -48,7 +48,7 @@ contract AffeMarket is ReentrancyGuard {
     uint256 price) 
     public payable nonReentrant {
     require(price > 0, "Does not meet minimum price");
-    require(msg.value == listingFee, "Needs more funds to create item");
+    // require(msg.value == listingFee, "Needs more funds to create item");
 
     _itemIds.increment();
     uint256 itemId = _itemIds.current();
@@ -92,7 +92,7 @@ contract AffeMarket is ReentrancyGuard {
     affeItems[itemId].sold = true;
     _itemsSold.increment();
     // AffeMarket gets listing fee
-    payable(owner).transfer(listingFee); // this owner is from state variable
+    // payable(owner).transfer(listingFee); // this owner is from state variable
   }
 
 // Get avaiable items to purchase
