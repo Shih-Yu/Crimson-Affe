@@ -8,6 +8,11 @@ import image2 from '../assets/MarcelStrauss/marcelstrauss2.jpg';
 import image3 from '../assets/MarcelStrauss/marcelstrauss3.jpg';
 import image4 from '../assets/MarcelStrauss/marcelstrauss4.jpg';
 import image5 from '../assets/MarcelStrauss/marcelstrauss5.jpg';
+import image6 from '../assets/spacecowboy/spacecowboy1.jpeg';
+import image7 from '../assets/spacecowboy/spacecowboy2.jpeg';
+import image8 from '../assets/spacecowboy/spacecowboy3.jpeg';
+import image9 from '../assets/spacecowboy/spacecowboy4.jpeg';
+import image10 from '../assets/spacecowboy/spacecowboy5.jpeg';
 
 
 import { affeMarketAddress, mintArtAddress } from '../../config';
@@ -28,37 +33,75 @@ export default function Gallery() {
     {
       id: 1,
       src: image1,
-      title: 'foo',
-      description: 'bar',
-      price: 1,
+      title: 'Color Bubble',
+      description: 'Dimensional Colorful Circles',
+      price: 175,
     },
     {
       id: 2,
       src: image2,
-      title: 'foo',
-      description: 'bar',
-      price: 1,
+      title: 'Crismson Sea',
+      description: 'Shades of red in the void',
+      price: 1250,
     },
     {
       id: 3,
       src: image3,
-      title: 'foo',
-      description: 'bar',
-      price: 1,
+      title: 'Cotton Candy',
+      description: 'Liquid Cotton Candy',
+      price: 400,
     },
     {
       id: 4,
       src: image4,
-      title: 'foo',
-      description: 'bar',
-      price: 1,
+      title: 'Dark Skies',
+      description: 'Thunderstorms in Sunlight',
+      price: 275,
     },
     {
       id: 5,
       src: image5,
-      title: 'foo',
-      description: 'bar',
-      price: 1,
+      title: 'Dark Skies 2',
+      description: 'Thunderstorms in Sunlight',
+      price: 275,
+    },
+  ]
+
+  const photos = [
+    {
+      id: 1,
+      src: image6,
+      title: 'Color Bubble',
+      description: 'Dimensional Colorful Circles',
+      price: 175,
+    },
+    {
+      id: 2,
+      src: image7,
+      title: 'Crismson Sea',
+      description: 'Shades of red in the void',
+      price: 1250,
+    },
+    {
+      id: 3,
+      src: image8,
+      title: 'Cotton Candy',
+      description: 'Liquid Cotton Candy',
+      price: 400,
+    },
+    {
+      id: 4,
+      src: image9,
+      title: 'Dark Skies',
+      description: 'Thunderstorms in Sunlight',
+      price: 275,
+    },
+    {
+      id: 5,
+      src: image10,
+      title: 'Dark Skies 2',
+      description: 'Thunderstorms in Sunlight',
+      price: 275,
     },
   ]
 
@@ -135,11 +178,32 @@ export default function Gallery() {
             <div className='card my-3 mx-3' key={index}>
               <img src={nft.src} className='card-img-top' alt='nft cards' />
               <div className='card-body'>
-                <h5 className='card-title'>{nft.title}</h5>
+                <h5 style={{color: '#8a0000'}} className='card-title'>{nft.title}</h5>
                 <p className='card-text'>{nft.description}</p>
-                <p className='card-text'>{nft.price} Ethers</p>
+                <p style={{color: '#262a2c'}} className='card-text'>{nft.price} Matic</p>
               </div>
-              <div className='card-footer'>
+              <div className='card-footer d-grid justify-content-mx-auto-center'>
+                <button
+                  className='btn btn-lg'
+                  style={{ backgroundColor: '#fdbe02', border: 'none' }}
+                  onClick={() => buyNft(nft)}
+                >
+                  Buy
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className='card-group'>
+          {photos.map((nft, index) => (
+            <div className='card my-3 mx-3' key={index}>
+              <img src={nft} className='card-img-top' alt='nft cards' />
+              <div className='card-body'>
+              <h5 style={{color: '#8a0000'}} className='card-title'>{nft.title}</h5>
+                <p className='card-text'>{nft.description}</p>
+                <p style={{color: '#262a2c'}} className='card-text'>{nft.price} Matic</p>
+              </div>
+              <div className='card-footer d-grid justify-content-mx-auto-center'>
                 <button
                   className='btn btn-small btn'
                   style={{ backgroundColor: '#fdbe02', border: 'none' }}
@@ -151,27 +215,6 @@ export default function Gallery() {
             </div>
           ))}
         </div>
-        {/* <div className='card-group'>
-          {photos.map((nft, index) => (
-            <div className='card my-3 mx-3' key={index}>
-              <img src={nft} className='card-img-top' alt='nft cards' />
-              <div className='card-body'>
-                <h5 className='card-title'>{nft.artPiece}</h5>
-                <p className='card-text'>{nft.description}</p>
-                <p className='card-text'>{nft.price} Ethers</p>
-              </div>
-              <div className='card-footer'>
-                <button
-                  className='btn btn-small btn'
-                  style={{ backgroundColor: '#fdbe02', border: 'none' }}
-                  onClick={() => buyNft(nft)}
-                >
-                  Buy
-                </button>
-              </div>
-            </div>
-          ))}
-        </div> */}
       </div>
     </>
   );
