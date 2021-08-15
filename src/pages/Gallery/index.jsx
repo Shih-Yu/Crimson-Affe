@@ -14,11 +14,9 @@ import image8 from '../assets/spacecowboy/spacecowboy3.jpeg';
 import image9 from '../assets/spacecowboy/spacecowboy4.jpeg';
 import image10 from '../assets/spacecowboy/spacecowboy5.jpeg';
 
-
 import { affeMarketAddress, mintArtAddress } from '../../config';
 import AffeMarket from '../../artifacts/contracts/AffeMarket.sol/AffeMarket.json';
 import MintArt from '../../artifacts/contracts/MintArt.sol/MintArt.json';
-
 
 export default function Gallery() {
   // const [nfts, setNfts] = useState([]);
@@ -28,14 +26,13 @@ export default function Gallery() {
   //   loadNfts();
   // }, []);
 
-
   const images = [
     {
       id: 1,
       src: image1,
       title: 'Color Bubble',
       description: 'Dimensional Colorful Circles',
-      price: 175,
+      price: 375,
     },
     {
       id: 2,
@@ -49,14 +46,14 @@ export default function Gallery() {
       src: image3,
       title: 'Cotton Candy',
       description: 'Liquid Cotton Candy',
-      price: 400,
+      price: 700,
     },
     {
       id: 4,
       src: image4,
       title: 'Dark Skies',
       description: 'Thunderstorms in Sunlight',
-      price: 275,
+      price: 475,
     },
     {
       id: 5,
@@ -65,45 +62,45 @@ export default function Gallery() {
       description: 'Thunderstorms in Sunlight',
       price: 275,
     },
-  ]
+  ];
 
   const photos = [
     {
       id: 1,
       src: image6,
-      title: 'Color Bubble',
-      description: 'Dimensional Colorful Circles',
-      price: 175,
+      title: 'Pink Night Sky',
+      description: 'A galaxy far far away',
+      price: 1175,
     },
     {
       id: 2,
       src: image7,
-      title: 'Crismson Sea',
-      description: 'Shades of red in the void',
-      price: 1250,
+      title: 'Drunken Starry Night',
+      description: 'Camping with a camera',
+      price: 950,
     },
     {
       id: 3,
       src: image8,
-      title: 'Cotton Candy',
-      description: 'Liquid Cotton Candy',
-      price: 400,
+      title: 'Solar System',
+      description: 'Space - a place to feel small',
+      price: 450,
     },
     {
       id: 4,
       src: image9,
-      title: 'Dark Skies',
-      description: 'Thunderstorms in Sunlight',
-      price: 275,
+      title: 'Sunburst Space',
+      description: 'Darkness surrounds bright star',
+      price: 975,
     },
     {
       id: 5,
       src: image10,
-      title: 'Dark Skies 2',
-      description: 'Thunderstorms in Sunlight',
+      title: 'North',
+      description: 'Northern Lights',
       price: 275,
     },
-  ]
+  ];
 
   async function loadNfts() {
     const provider = new ethers.providers.JsonRpcProvider(
@@ -138,8 +135,8 @@ export default function Gallery() {
         return item;
       })
     );
-  //   setNfts(items);
-  //   setUpload('loaded');
+    //   setNfts(items);
+    //   setUpload('loaded');
   }
 
   async function buyNft(nft) {
@@ -178,9 +175,13 @@ export default function Gallery() {
             <div className='card my-3 mx-3' key={index}>
               <img src={nft.src} className='card-img-top' alt='nft cards' />
               <div className='card-body'>
-                <h5 style={{color: '#8a0000'}} className='card-title'>{nft.title}</h5>
+                <h5 style={{ color: '#8a0000' }} className='card-title'>
+                  {nft.title}
+                </h5>
                 <p className='card-text'>{nft.description}</p>
-                <p style={{color: '#262a2c'}} className='card-text'>{nft.price} Matic</p>
+                <p style={{ color: '#262a2c' }} className='card-text'>
+                  {nft.price} Matic
+                </p>
               </div>
               <div className='card-footer d-grid justify-content-mx-auto-center'>
                 <button
@@ -197,11 +198,15 @@ export default function Gallery() {
         <div className='card-group'>
           {photos.map((nft, index) => (
             <div className='card my-3 mx-3' key={index}>
-              <img src={nft} className='card-img-top' alt='nft cards' />
+              <img src={nft.src} className='card-img-top' alt='nft cards' />
               <div className='card-body'>
-              <h5 style={{color: '#8a0000'}} className='card-title'>{nft.title}</h5>
+                <h5 style={{ color: '#8a0000' }} className='card-title'>
+                  {nft.title}
+                </h5>
                 <p className='card-text'>{nft.description}</p>
-                <p style={{color: '#262a2c'}} className='card-text'>{nft.price} Matic</p>
+                <p style={{ color: '#262a2c' }} className='card-text'>
+                  {nft.price} Matic
+                </p>
               </div>
               <div className='card-footer d-grid justify-content-mx-auto-center'>
                 <button

@@ -3,6 +3,7 @@ import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Routes from './Router';
 import { Header, Footer } from './components'
+import './App.css';
  
 function App() {
   return (
