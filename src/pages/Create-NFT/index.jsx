@@ -33,7 +33,7 @@ export default function CreateNFT() {
       const metadata = await client.store({
         name: formInput.name,
         description: formInput.description,
-        image: new File([files], "test.jpg", { type: "image/jpg" }),
+        image: new File([files], "spacecowboy5.jpeg", { type: "image/jpg" }),
       });
 
       const url = metadata.url;
