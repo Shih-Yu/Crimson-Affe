@@ -68,12 +68,12 @@ export default function CreateNFT() {
     // calling the affemarket contract from the blockchain
     contract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
     // getting function from the affemarket contract
-    let listingFee = await contract.getListingFee();
-    listingFee = listingFee.toString();
+    // let listingFee = await contract.getListingFee();
+    // listingFee = listingFee.toString();
     // calling the mintart contract and creating a nft token
-    transaction = await contract.createAffeItem(mintArtAddress, tokenId, price, {
-      value: listingFee,
-    });
+    // transaction = await contract.createAffeItem(mintArtAddress, tokenId, price, {
+    //   value: listingFee,
+    // });
 
     
   }
