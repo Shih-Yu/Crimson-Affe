@@ -103,32 +103,40 @@ export default function Gallery() {
   ];
 
   async function loadNfts() {
+    // connect to the Mumbai testnet
     const provider = new ethers.providers.JsonRpcProvider(
       process.env.REACT_APP_MUMBAI_URL
     );
+    // retrieve the MintArt contract information
     const tokenContract = new ethers.Contract(
       mintArtAddress,
       MintArt.abi,
       provider
     );
+    // retrieve the AffeMarket contract information
     const marketContract = new ethers.Contract(
       affeMarketAddress,
       AffeMarket.abi,
       provider
     );
+    // get function from the AffeMarket contract
     const data = await marketContract.getAffeItems();
 
     const items = await Promise.all(
       data.map(async (i) => {
+        // get tokenURI from the AffeMarket contract
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
+        // retrieve the metadata from the tokenURI
         const meta = await axios.get(tokenUri);
+        // using ethers utils to get a more readable number
         let price = ethers.utils.formatUnits(i.price.toString(), 'ethers');
+        // setting object of the items available for sale to display on gallery page
         let item = {
           price,
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
-          //image: meta.data.image,
+          image: meta.data.image,
           name: meta.data.name,
           description: meta.data.description,
         };
@@ -138,20 +146,23 @@ export default function Gallery() {
     //   setNfts(items);
     //   setUpload('loaded');
   }
-
+  
   async function buyNft(nft) {
+    // connect to metamask
     const web3Modal = new Web3modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
+    // sign in to metamask
     const signer = provider.getSigner();
-
+    // retrieve the AffeMarket contract information
     const tokenContract = new ethers.Contract(
       affeMarketAddress,
       AffeMarket.abi,
       signer
     );
+    // use ethers utils to get a more readable number
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ethers');
-
+    // get function from the AffeMarket contract and info NFT token contract
     const transaction = await tokenContract.createAffeSale(
       mintArtAddress,
       nft.tokenId,
@@ -162,10 +173,6 @@ export default function Gallery() {
     await transaction.wait();
     loadNfts();
   }
-
-  // if (upload === 'loaded' && !nfts.length) {
-  //   return <h1 className='text-center px-20 py-10'>No NFTs available</h1>;
-  // }
 
   return (
     <>

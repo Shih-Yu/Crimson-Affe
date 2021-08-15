@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  
+  // get contract to deploy, deploy contract, get contact address 
   const AffeMarket = await hre.ethers.getContractFactory("AffeMarket");
   const affeMarket = await AffeMarket.deploy();
   await affeMarket.deployed();

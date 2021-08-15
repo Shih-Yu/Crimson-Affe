@@ -26,7 +26,7 @@ contract MintArt is ERC721URIStorage{
     affeContractAddress = _affeContractAddress; //Assign state address to contract address of marketplace
     owner = msg.sender; // Assign the address that deployed this contract
   }
-  
+  // mint token
   function createNFT(string memory tokenUri) public returns(uint) {
     // Increment nftId before assigning
     _nftId.increment();

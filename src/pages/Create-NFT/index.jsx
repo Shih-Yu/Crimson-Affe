@@ -43,10 +43,6 @@ export default function CreateNFT() {
     }
   }
 
-
-
-
-
   // Creating NFT token
 
   async function createNFTToken(url) {
@@ -56,23 +52,25 @@ export default function CreateNFT() {
     const provider = new ethers.providers.Web3Provider(connection);
     // Get account of wallet
     const signer = provider.getSigner();
-    // Calling contract from the blockchain
+    // Calling MintArt contract from the blockchain
     let contract = new ethers.Contract(mintArtAddress, MintArt.abi, signer);
-    // Calling specific function fron the contract
+    // Calling specific function from the contract
     let transaction = await contract.createNFT(url); // create new token contract
     let tx = await transaction.wait(); // wait for transaction to be mined to verify transaction was successful
 
-    // get info from NFT Contract
+    // get emmitted events from the Affemarket contract
     let event = tx.events[0]; // get the latest event that was fired
-    // console.log(event.args[2]);
+    // getting the third indexed event from the Affemarket contract
     let value = event.args[2];
     let tokenId = value.toNumber();
 
     const price = ethers.utils.parseUnits(formInput.price, "ether");
+    // calling the affemarket contract from the blockchain
     contract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
+    // getting function from the affemarket contract
     let listingFee = await contract.getListingFee();
     listingFee = listingFee.toString();
-
+    // calling the mintart contract and creating a nft token
     transaction = await contract.createAffeItem(mintArtAddress, tokenId, price, {
       value: listingFee,
     });

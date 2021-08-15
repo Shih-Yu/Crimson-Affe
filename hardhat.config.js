@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require('dotenv').config();
 
-
+// connect to mumbai testnet or localhost
 module.exports = {
   networks: {
     hardhat: {
@@ -9,10 +9,6 @@ module.exports = {
     },
     mumbai: {
       url: process.env.MUMBAI_URL,
-      accounts: [process.env.PRIVATE_KEY],
-    },
-    goerli: {
-      url: process.env.GOERLI_URL,
       accounts: [process.env.PRIVATE_KEY],
     }
   },

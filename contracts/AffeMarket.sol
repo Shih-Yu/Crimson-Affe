@@ -6,17 +6,20 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "hardhat/console.sol";
 
+// contract using reentrancy guard to counter attacks
 contract AffeMarket is ReentrancyGuard {
   using Counters for Counters.Counter;
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
   address payable owner;
-  // uint256 listingFee = 0.025 ether;
+  uint256 listingFee = 0.025 ether;
 
+  // sets owner as the deployer of the contract 
   constructor() {
     owner = payable(msg.sender);
   }
 
+  // propetries of the NFT items
   struct AffeItem {
     uint256 itemId;
     address mintArtContract;
@@ -27,8 +30,10 @@ contract AffeMarket is ReentrancyGuard {
     bool sold;
   }
   
+  // getting a list of NFTs by id
   mapping(uint256 => AffeItem) private affeItems;
 
+  // create a 'log' of NFT properties
   event AffeItemCreated(
     uint256 indexed itemId, 
     address indexed mintArtContract, 
@@ -38,21 +43,22 @@ contract AffeMarket is ReentrancyGuard {
     uint256 price, 
     bool sold);
 
-  // function getListingFee() public view returns(uint256) {
-  //   return listingFee;
-  // }
+  function getListingFee() public view returns(uint256) {
+    return listingFee;
+  }
 
+  // create a new NFT
   function createAffeItem(
     address mintArtContract, 
     uint256 tokenId, 
     uint256 price) 
     public payable nonReentrant {
     require(price > 0, "Does not meet minimum price");
-    // require(msg.value == listingFee, "Needs more funds to create item");
+    require(msg.value == listingFee, "Needs more funds to create item");
 
     _itemIds.increment();
     uint256 itemId = _itemIds.current();
-
+    // access NFT by id
     affeItems[itemId] = AffeItem(
       itemId,
       mintArtContract,
@@ -62,9 +68,10 @@ contract AffeMarket is ReentrancyGuard {
       price,
       false
     );
-
+    // openzeppelin721 to transfer NFT when it is sold
     IERC721(mintArtContract).transferFrom(msg.sender, address(this), tokenId);
 
+    // activate the event
     emit AffeItemCreated(
       itemId,
       mintArtContract,
@@ -92,10 +99,10 @@ contract AffeMarket is ReentrancyGuard {
     affeItems[itemId].sold = true;
     _itemsSold.increment();
     // AffeMarket gets listing fee
-    // payable(owner).transfer(listingFee); // this owner is from state variable
+    payable(owner).transfer(listingFee); // this owner is from state variable
   }
 
-// Get avaiable items to purchase
+// Get available items to purchase
   function getAffeItems()public view returns(AffeItem[] memory){
     uint256 itemCount = _itemIds.current();
     uint256 itemNotSold = _itemIds.current() - _itemsSold.current();
