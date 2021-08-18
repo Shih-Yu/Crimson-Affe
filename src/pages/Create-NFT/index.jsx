@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 //import { Redirect } from "react-router-dom";
 import { NFTStorage, File } from "nft.storage";
-import Web3Modal from "web3modal";
+//mport Web3Modal from "web3modal";
 import { affeMarketAddress, mintArtAddress } from "../../config";
 import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
 import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
@@ -47,13 +47,17 @@ export default function CreateNFT() {
     }
   }
 
+  async function requestAccount() {
+    await window.ethereum.request({ method: "eth_requestAccounts"});
+  }
   // Creating NFT token
 
   async function createNFTToken() {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
+    // const web3Modal = new Web3Modal();
+    // const connection = await web3Modal.connect();
     // Connect to user's wallet
-    const provider = new ethers.providers.Web3Provider(connection);
+    await requestAccount();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     // Get account of wallet
     const signer = provider.getSigner();
     // Calling MintArt contract from the blockchain

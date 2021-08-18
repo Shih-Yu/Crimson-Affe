@@ -3,6 +3,6 @@
 //export const affeMarketAddress="0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // Deployed contract on Mumbai testnet
-export const mintArtAddress = "0xc2BD331E33e339258BdEdC9D25F7E523D0AA6dD9";
-export const affeMarketAddress = "0xfFCD7DD15Caa93C518B9AC6Fbc3954E8C7F8a8E4";
+export const mintArtAddress = "0x5846e2fCf701B0B3DaCa1F2d9fA5c7a269e6024d";
+export const affeMarketAddress = "0x273F022292F16CE9FC2D0a7D093Efc59ecE5cE7e";
 

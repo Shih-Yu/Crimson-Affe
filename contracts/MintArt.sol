@@ -18,13 +18,13 @@ contract MintArt is ERC721URIStorage{
   // Declaring marketplace contract address
   address affeContractAddress;
   // Declaring owner address
-  address owner;
+  // address owner;
   
 
 // Sets name and symbol of nft token to marketplace address when MintArt is deployed
   constructor(address _affeContractAddress) ERC721("AffeCoin", "AFC") {
     affeContractAddress = _affeContractAddress; //Assign state address to contract address of marketplace
-    owner = msg.sender; // Assign the address that deployed this contract
+    // owner = msg.sender; // Assign the address that deployed this contract
   }
   // mint token
   function createNFT(string memory tokenUri) public returns(uint) {
@@ -32,8 +32,9 @@ contract MintArt is ERC721URIStorage{
     _nftId.increment();
     // Update nftId 
     uint updatednftId = _nftId.current();
-    _mint(owner, updatednftId); // 2 parameters address and a id
+    _mint(msg.sender, updatednftId); // 2 parameters address and a id
     _setTokenURI(updatednftId, tokenUri); 
+    setApprovalForAll(affeContractAddress, true);
     
     return updatednftId;
   }
