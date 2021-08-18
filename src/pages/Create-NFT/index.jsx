@@ -14,6 +14,8 @@ import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
 const apiKey = process.env.REACT_APP_NFTSTORAGE_KEY;
 const client = new NFTStorage({ token: apiKey });
 
+var url
+
 export default function CreateNFT() {
   const [formInput, setFormInput] = useState({
     name: "",
@@ -27,16 +29,18 @@ export default function CreateNFT() {
   // Getting information for metadata from state and passing to nft.storage
   async function onFile(event) {
     // Assigns the uploaded file
-    const files = event.target.files[0];
+    const files = event.target.files;
+    let fileName = files[0].name;
+    alert(fileName);
 
     try {
       const metadata = await client.store({
         name: formInput.name,
         description: formInput.description,
-        image: new File([files], "spacecowboy5.jpeg", { type: "image/jpg" }),
+        image: new File([files], fileName, { type: "image/jpg" }),
       });
 
-      const url = metadata.url;
+      url = metadata.url;
       setFile(url);
     } catch (error) {
       console.log(error);
@@ -45,7 +49,7 @@ export default function CreateNFT() {
 
   // Creating NFT token
 
-  async function createNFTToken(url) {
+  async function createNFTToken() {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     // Connect to user's wallet
@@ -68,14 +72,12 @@ export default function CreateNFT() {
     // calling the affemarket contract from the blockchain
     contract = new ethers.Contract(affeMarketAddress, AffeMarket.abi, signer);
     // getting function from the affemarket contract
-    // let listingFee = await contract.getListingFee();
-    // listingFee = listingFee.toString();
+    let listingFee = await contract.getListingFee();
+    listingFee = listingFee.toString();
     // calling the mintart contract and creating a nft token
-    // transaction = await contract.createAffeItem(mintArtAddress, tokenId, price, {
-    //   value: listingFee,
-    // });
-
-    
+    transaction = await contract.createAffeItem(mintArtAddress, tokenId, price, {
+      value: listingFee,
+    });   
   }
 
   return (
