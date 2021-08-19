@@ -19,12 +19,12 @@ import AffeMarket from '../../artifacts/contracts/AffeMarket.sol/AffeMarket.json
 import MintArt from '../../artifacts/contracts/MintArt.sol/MintArt.json';
 
 export default function Gallery() {
-  // const [nfts, setNfts] = useState([]);
-  // const [upload, setUpload] = useState('not-loaded');
+  const [nfts, setNfts] = useState([]);
+  const [upload, setUpload] = useState('not-loaded');
 
-  // useEffect(() => {
-  //   loadNfts();
-  // }, []);
+  useEffect(() => {
+    loadNfts();
+  }, []);
 
   const images = [
     {
@@ -143,8 +143,8 @@ export default function Gallery() {
         return item;
       })
     );
-    //   setNfts(items);
-    //   setUpload('loaded');
+      setNfts(items);
+      setUpload('loaded');
   }
   
   async function buyNft(nft) {
@@ -173,11 +173,13 @@ export default function Gallery() {
     await transaction.wait();
     loadNfts();
   }
+    if (upload === 'loaded' && !nfts.length) 
+      return <h1 className="text-center">No NFTs available</h1>;
 
   return (
     <>
       <div style={pageTemplate}>
-        <div className='card-group'>
+        {/* <div className='card-group'>
           {images.map((nft, index) => (
             <div className='card my-3 mx-3' key={index}>
               <img src={nft.src} className='card-img-top' alt='nft cards' />
@@ -201,11 +203,11 @@ export default function Gallery() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
         <div className='card-group'>
-          {photos.map((nft, index) => (
+          {nfts.map((nft, index) => (
             <div className='card my-3 mx-3' key={index}>
-              <img src={nft.src} className='card-img-top' alt='nft cards' />
+              <img src={nft.image} className='card-img-top' alt='nft cards' />
               <div className='card-body'>
                 <h5 style={{ color: '#8a0000' }} className='card-title'>
                   {nft.title}

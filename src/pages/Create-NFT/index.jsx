@@ -2,9 +2,9 @@ import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { pageTemplate, form, h1 } from "./styles/createNFT";
 import React, { useState } from "react";
 import { ethers } from "ethers";
-//import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { ROUTES } from "../../utils/constants/routes";
 import { NFTStorage, File } from "nft.storage";
-//mport Web3Modal from "web3modal";
 import { affeMarketAddress, mintArtAddress } from "../../config";
 import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
 import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
@@ -24,7 +24,6 @@ export default function CreateNFT() {
     image: "",
   });
   const [file, setFile] = useState(null);
-
 
   // Getting information for metadata from state and passing to nft.storage
   async function onFile(event) {
@@ -53,8 +52,6 @@ export default function CreateNFT() {
   // Creating NFT token
 
   async function createNFTToken() {
-    // const web3Modal = new Web3Modal();
-    // const connection = await web3Modal.connect();
     // Connect to user's wallet
     await requestAccount();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -81,7 +78,9 @@ export default function CreateNFT() {
     // calling the mintart contract and creating a nft token
     transaction = await contract.createAffeItem(mintArtAddress, tokenId, price, {
       value: listingFee,
-    });   
+    });
+    await transaction.wait();
+    return <Redirect to={ROUTES.gallery} />; 
   }
 
   return (
