@@ -27,11 +27,11 @@ contract MintArt is ERC721URIStorage{
     // owner = msg.sender; // Assign the address that deployed this contract
   }
   // mint token
-  function createNFT(string memory tokenUri) public returns(uint) {
+  function createNFT(string memory tokenUri) public returns(uint256) {
     // Increment nftId before assigning
     _nftId.increment();
     // Update nftId 
-    uint updatednftId = _nftId.current();
+    uint256 updatednftId = _nftId.current();
     _mint(msg.sender, updatednftId); // 2 parameters address and a id
     _setTokenURI(updatednftId, tokenUri); 
     setApprovalForAll(affeContractAddress, true);
