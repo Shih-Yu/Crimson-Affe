@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 import { Redirect } from "react-router-dom";
 import { ROUTES } from "../../utils/constants/routes";
-import { NFTStorage, File } from "nft.storage";
+import { NFTStorage, File} from "nft.storage";
 import { affeMarketAddress, mintArtAddress } from "../../config";
 import AffeMarket from "../../artifacts/contracts/AffeMarket.sol/AffeMarket.json";
 import MintArt from "../../artifacts/contracts/MintArt.sol/MintArt.json";
@@ -39,7 +39,14 @@ export default function CreateNFT() {
         image: new File([files], fileName, { type: "image/jpg" }),
       });
 
-      url = metadata.url;
+      let path = metadata.ipnft;
+
+      console.log(path);
+
+        url = `https://api.nft.storage/${path}`
+      //  url = `https://ipfs.infura.io/ipfs/${path}/metadata.json`
+      // url = `https://${path}.ipfs.infura-ipfs.io/metadata.json`
+      console.log(url);
       setFile(url);
     } catch (error) {
       console.log(error);

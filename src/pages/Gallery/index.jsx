@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import Web3modal from 'web3modal';
 import axios from 'axios';
+import { toGatewayURL } from "nft.storage";
+
 import { pageTemplate } from './styles/gallery';
 import image1 from '../assets/MarcelStrauss/marcelstrauss1.jpg';
 import image2 from '../assets/MarcelStrauss/marcelstrauss2.jpg';
@@ -127,9 +129,13 @@ export default function Gallery() {
         // get tokenURI from the AffeMarket contract
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
         // retrieve the metadata from the tokenURI
-        const meta = await axios.get(tokenUri);
+        // const httpURI = tokenUri.replace(/^ipfs/, "https").replace(/\.metadata.json$/, "");
+        const httpURI = toGatewayURL(tokenUri);
+        const meta = await axios.get(httpURI);
         // using ethers utils to get a more readable number
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ethers');
+        console.log(i.price.toString());
+        let price = ethers.utils.formatUnits(i.price, 'ethers');
+        
         // setting object of the items available for sale to display on gallery page
         let item = {
           price,
