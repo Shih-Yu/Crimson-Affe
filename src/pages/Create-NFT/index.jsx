@@ -30,7 +30,7 @@ export default function CreateNFT() {
     // Assigns the uploaded file
     const files = event.target.files;
     let fileName = files[0].name;
-    alert(fileName);
+    // alert(fileName);
 
     try {
       const metadata = await client.store({

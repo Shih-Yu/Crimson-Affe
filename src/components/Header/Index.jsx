@@ -10,9 +10,7 @@ export default function Header() {
       <Navbar style={myStyle}>
         <Container>
           <Navbar.Brand href={ROUTES.home} style={myStyle}>
-            <Nav.Link href={ROUTES.home}>
               <img src={logo} alt="crimson affe logo"></img>
-            </Nav.Link>
           </Navbar.Brand>
           <Nav className="justify-content-end">
             <Nav.Item>
