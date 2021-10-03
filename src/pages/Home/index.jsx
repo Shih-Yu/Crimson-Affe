@@ -39,7 +39,7 @@ export default function Home() {
           </h1>
           <h3 style={{ margin: '50px', paddingLeft: '220px' }}>
             A decentralized NFT marketplace exchange that promotes artist's
-            ablility to create and own their arts.
+            ability to create and own their arts.
           </h3>
         </div>
       </div>
